@@ -1,8 +1,1 @@
-﻿id,4375242
-apiKey,sk-a560b27f77754a0491ac0a8b07618e1b
-apiHost,llm-usyw6ardysqlz0pe.cn-beijing.maas.aliyuncs.com
-openAiCompatible,https://llm-usyw6ardysqlz0pe.cn-beijing.maas.aliyuncs.com/compatible-model/v1
-dashScope,https://llm-usyw6ardysqlz0pe.cn-beijing.maas.aliyuncs.com/api/v1
-description,
-workspaceName,默认业务空间
-workspaceId,llm-usyw6ardysqlz0pe
+
