@@ -23,6 +23,7 @@ services:
     environment:
       - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
       - STORAGE_BASE_URL=${STORAGE_BASE_URL:-http://localhost:8081}
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --limit-max-bytes 524288000
     networks:
       - zimu-network
 
