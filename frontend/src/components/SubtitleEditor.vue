@@ -57,7 +57,7 @@
         <div class="subtitle-actions">
           <el-button
             size="small"
-            :icon="Playing"
+            :icon="VideoPlay"
             circle
             @click.stop="playFromHere(item)"
           />
@@ -92,7 +92,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Delete, Plus, RefreshLeft, Playing } from '@element-plus/icons-vue'
+import { Delete, Plus, RefreshLeft, VideoPlay } from '@element-plus/icons-vue'
 
 const props = defineProps({
   subtitles: {
