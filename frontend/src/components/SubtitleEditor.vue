@@ -17,23 +17,23 @@
         
         <div class="subtitle-time">
           <el-time-select
-            v-model="item.begin_time"
+            v-model="item._beginTimeStr"
             :step="0:01"
             start="00:00"
             end="12:00"
             style="width: 100px"
             size="small"
-            @change="handleTimeChange(index)"
+            @change="(val) => handleBeginTimeChange(index, val)"
           />
           <span class="time-separator">→</span>
           <el-time-select
-            v-model="item.end_time"
+            v-model="item._endTimeStr"
             :step="0:01"
             start="00:00"
             end="12:00"
             style="width: 100px"
             size="small"
-            @change="handleTimeChange(index)"
+            @change="(val) => handleEndTimeChange(index, val)"
           />
         </div>
         
@@ -107,9 +107,32 @@ const currentIndex = ref(-1)
 const history = ref([])
 const historyIndex = ref(-1)
 
+// 秒数转时间字符串 "HH:MM"
+const secondsToTimeStr = (seconds) => {
+  if (!seconds && seconds !== 0) return '00:00'
+  const mins = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+}
+
+// 时间字符串转秒数
+const timeStrToSeconds = (timeStr) => {
+  if (!timeStr) return 0
+  const [mins, secs] = timeStr.split(':').map(Number)
+  return mins * 60 + (secs || 0)
+}
+
+// 获取字幕的开始时间字符串
+const getBeginTimeStr = (item) => secondsToTimeStr(item.begin_time)
+
+// 获取字幕的结束时间字符串
+const getEndTimeStr = (item) => secondsToTimeStr(item.end_time)
+
 watch(() => props.subtitles, (newVal) => {
   // 保存历史记录
   if (newVal.length > 0) {
+    // 初始化时间字符串
+    initTimeStr(newVal)
     saveHistory(JSON.parse(JSON.stringify(newVal)))
   }
 }, { deep: true })
@@ -125,11 +148,7 @@ const selectSubtitle = (index) => {
   currentIndex.value = index
 }
 
-const handleTimeChange = (index) => {
-  emit('update:subtitles', [...props.subtitles])
-}
-
-const handleTextChange = (index) => {
+const handleTextChange = () => {
   emit('update:subtitles', [...props.subtitles])
 }
 
@@ -161,7 +180,9 @@ const addSubtitle = () => {
     index: props.subtitles.length + 1,
     begin_time: 0,
     end_time: 0,
-    text: '新字幕'
+    text: '新字幕',
+    _beginTimeStr: '00:00',
+    _endTimeStr: '00:00'
   }
   
   emit('update:subtitles', [...props.subtitles, newSubtitle])
@@ -178,6 +199,32 @@ const undo = () => {
 
 const playFromHere = (item) => {
   emit('play', item.begin_time)
+}
+
+// 初始化字幕的时间字符串（用于 el-time-select 绑定）
+const initTimeStr = (subtitles) => {
+  subtitles.forEach(item => {
+    if (!item._beginTimeStr) {
+      item._beginTimeStr = secondsToTimeStr(item.begin_time || 0)
+    }
+    if (!item._endTimeStr) {
+      item._endTimeStr = secondsToTimeStr(item.end_time || 0)
+    }
+  })
+}
+
+// 处理开始时间变化
+const handleBeginTimeChange = (index, val) => {
+  const item = props.subtitles[index]
+  item.begin_time = timeStrToSeconds(val)
+  emit('update:subtitles', [...props.subtitles])
+}
+
+// 处理结束时间变化
+const handleEndTimeChange = (index, val) => {
+  const item = props.subtitles[index]
+  item.end_time = timeStrToSeconds(val)
+  emit('update:subtitles', [...props.subtitles])
 }
 
 const getStatusType = (status) => {
