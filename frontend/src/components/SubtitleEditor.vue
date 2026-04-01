@@ -18,7 +18,7 @@
         <div class="subtitle-time">
           <el-time-select
             v-model="item._beginTimeStr"
-            :step="0:01"
+            step="00:01"
             start="00:00"
             end="12:00"
             style="width: 100px"
@@ -28,7 +28,7 @@
           <span class="time-separator">→</span>
           <el-time-select
             v-model="item._endTimeStr"
-            :step="0:01"
+            step="00:01"
             start="00:00"
             end="12:00"
             style="width: 100px"
