@@ -1,8 +1,9 @@
 """
 自动打轴工具 - FastAPI 后端
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from app.api import upload, asr, export
 from app.core.config import settings
 
@@ -21,6 +22,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def generic_exception_handler(request: Request, exc: Exception):
+    """处理所有未捕获的异常"""
+    error_msg = str(exc)
+    if "payload too large" in error_msg.lower() or "max upload" in error_msg.lower():
+        return JSONResponse(
+            status_code=413,
+            content={"detail": "文件过大，最大支持 500MB"}
+        )
+    return JSONResponse(
+        status_code=500,
+        content={"detail": error_msg}
+    )
 
 # 注册路由
 app.include_router(upload.router)
