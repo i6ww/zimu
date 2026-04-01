@@ -37,7 +37,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone <your-repo-url>
+git clone https://github.com/i6ww/zimu.git
 cd zimu
 
 # 2. 配置环境变量
