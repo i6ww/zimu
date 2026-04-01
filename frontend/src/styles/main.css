@@ -1,0 +1,231 @@
+/* 自动打轴工具 - 全局样式 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #409EFF;
+  --success-color: #67C23A;
+  --warning-color: #E6A23C;
+  --danger-color: #F56C6C;
+  --bg-dark: #1a1a2e;
+  --bg-card: #16213e;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+}
+
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* 容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 上传区域 */
+.upload-area {
+  border: 2px dashed var(--primary-color);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: rgba(64, 158, 255, 0.1);
+}
+
+.upload-area:hover {
+  border-color: #66b1ff;
+  background-color: rgba(64, 158, 255, 0.15);
+}
+
+.upload-area.dragover {
+  border-color: var(--success-color);
+  background-color: rgba(103, 194, 58, 0.1);
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.upload-text {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* 文本输入框 */
+.text-input {
+  width: 100%;
+  min-height: 200px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.text-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover {
+  background-color: #66b1ff !important;
+  border-color: #66b1ff !important;
+}
+
+/* 音频播放器 */
+.audio-player {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.audio-progress {
+  flex: 1;
+}
+
+/* 字幕列表 */
+.subtitle-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.subtitle-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.subtitle-item:hover {
+  background-color: rgba(64, 158, 255, 0.1);
+}
+
+.subtitle-item.active {
+  background-color: rgba(64, 158, 255, 0.2);
+  border: 1px solid var(--primary-color);
+}
+
+.subtitle-index {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  font-weight: 600;
+  margin-right: 16px;
+}
+
+.subtitle-time {
+  font-family: 'Consolas', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-width: 200px;
+  margin-right: 16px;
+}
+
+.subtitle-text {
+  flex: 1;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #66b1ff;
+}
+
+/* 加载状态 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+}
